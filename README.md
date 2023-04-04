@@ -43,7 +43,7 @@ To see a demonstration of each fallacy, run the app and select a fallacy from th
 
 ## Acknowledgements
 
-This app was based on the Data Fallacies to Avoid article by Nina Zumel and John Mount. The dataset used in this app is synthetic and was created using NumPy. The plots were generated using Seaborn
+This app was based on the Data Fallacies to Avoid article by [Visualcapitalist] (https://www.visualcapitalist.com/here-are-15-common-data-fallacies-to-avoid). The dataset used in this app is synthetic and was created using NumPy. The plots were generated using Seaborn
 
 ## License
 
