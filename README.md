@@ -41,6 +41,10 @@ The app demonstrates the following data fallacies:
 
 To see a demonstration of each fallacy, run the app and select a fallacy from the dropdown menu.
 
+## Acknowledgements
+
+This app was based on the Data Fallacies to Avoid article by Nina Zumel and John Mount. The dataset used in this app is synthetic and was created using NumPy. The plots were generated using Seaborn
+
 ## License
 
 This app is licensed under the [MIT License](https://opensource.org/licenses/MIT).
