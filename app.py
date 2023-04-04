@@ -2,19 +2,24 @@ import streamlit as st
 import seaborn as sns
 import pandas as pd
 import numpy as np
+from scipy import stats
+
+# Handling Streamlit 
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+# Set the page title
+st.set_page_config(page_title='Data Fallacies Demonstration')
 
 np.random.seed(123)  # For reproducibility
 
 # Create a DataFrame with 100 students and their grades in three subjects
 df = pd.DataFrame({
     'StudentID': range(1, 101),
+    'Gender': np.random.choice(['Male', 'Female'], 100),
     'Math': np.random.randint(60, 101, 100),
     'Science': np.random.randint(60, 101, 100),
     'English': np.random.randint(60, 101, 100)
 })
-
-# Set the page title
-st.set_page_config(page_title='Data Fallacies Demo')
 
 # Define the list of data fallacies
 fallacies = [
@@ -33,11 +38,11 @@ fallacies = [
     'Hawthorne Effect',
     'McNamara Fallacy',
     'Danger of Summary Metrics'
-]
+]        
 
 # Create the Streamlit app
 def main():
-    st.title('Data Fallacies Demo')
+    st.title('Data Fallacies')
     st.write('Select a data fallacy from the dropdown menu to see a demonstration.')
 
     # Add a dropdown menu for selecting the fallacy
@@ -73,11 +78,13 @@ def main():
         next_test = top_students.apply(lambda x: np.random.normal(x.mean(), 10), axis=1)
         sns.scatterplot(x=top_students['Math'], y=next_test)
         st.pyplot()
+        st.write('The above plot demonstrates the regression towards the mean fallacy. It shows the grades of top 10 students in Math plotted against their grades in the next test, where the unusually high grades in the first test are expected to be closer to the average in the next test.')
     elif selected_fallacy == 'Overfitting':
         st.subheader('Overfitting')
         # Fit a curve to the Math grades and plot it
         sns.regplot(data=df, x='StudentID', y='Math', order=10)
         st.pyplot()
+        st.write('The above plot demonstrates the overfitting fallacy. A curve is fit to the Math grades, which is too complex and highly tailored to the data, instead of representing the general trend.')
     elif selected_fallacy == 'Data Dredging':
         st.subheader('Data Dredging')
         # Collect data on the correlation between Math grades and random variables and plot only significant correlations
@@ -90,6 +97,7 @@ def main():
         significant_p_values = df_p[df_p['PValue'] < 0.05]
         sns.scatterplot(data=significant_p_values, x='RandomVar', y='PValue')
         st.pyplot()
+        st.write('The above plot demonstrates the data dredging fallacy. Multiple hypotheses are tested on the correlation between Math grades and different random variables, and only significant correlations are plotted, which are the result of chance.')
     elif selected_fallacy == 'False Causality':
         st.subheader('False Causality')
         # Plot the number of books read by students and their Math grades
@@ -97,6 +105,7 @@ def main():
         math_grades = df['Math']
         sns.scatterplot(x=num_books, y=math_grades)
         st.pyplot()
+        st.write('The above plot demonstrates the false causality fallacy. It shows the Math grades of students plotted against the number of books they read, leading to a conclusion that reading more books causes higher grades, which is not necessarily true.')
     elif selected_fallacy == 'Gambler’s Fallacy':
         st.subheader('Gambler’s Fallacy')
         # Flip a coin 100 times and plot the frequency of heads and tails over time
@@ -106,6 +115,7 @@ def main():
             freqs.append((flips[:i+1] == 'Heads').sum() / (i+1))
         sns.lineplot(x=range(1, 101), y=freqs)
         st.pyplot()
+        st.write('The above plot demonstrates the gambler’s fallacy. It shows the frequency of heads and tails over time in 100 coin flips, leading to the conclusion that the outcome of a flip is dependent on previous flips, which is not true.')
     elif selected_fallacy == 'Simpson’s Paradox':
         st.subheader('Simpson’s Paradox')
         # Plot the average Math and Science grades for male and female students, and then for the entire population
@@ -115,6 +125,7 @@ def main():
         averages = pd.DataFrame({'Male': male_avg, 'Female': female_avg, 'All': all_avg})
         sns.barplot(data=averages)
         st.pyplot()
+        st.write('The above plot demonstrates Simpson’s paradox. It shows the average Math and Science grades for male and female students and then for the entire population, leading to a conclusion that the overall population has a different trend than the subgroups, which is misleading.')
     elif selected_fallacy == 'Publication Bias':
         st.subheader('Publication Bias')
         # Collect data on the effectiveness of a drug and plot the number of published studies vs. the effect size
@@ -123,6 +134,7 @@ def main():
         df_p = pd.DataFrame({'EffectSize': effect_sizes, 'NumStudies': num_studies})
         sns.scatterplot(data=df_p, x='EffectSize', y='NumStudies')
         st.pyplot()
+        st.write('The above plot demonstrates the publication bias fallacy. It shows the number of published studies plotted against the effect size of a drug, leading to a conclusion that the drug has a stronger effect than it actually does, due to studies with small effect sizes being less likely to be published.')
     elif selected_fallacy == 'Survivorship Bias':
         st.subheader('Survivorship Bias')
         # Plot the height and weight of people who have survived a plane crash
@@ -133,6 +145,7 @@ def main():
         df_survived = df_s[df_s['Survived'] == 1]
         sns.scatterplot(data=df_survived, x='Height', y='Weight')
         st.pyplot()
+        st.write('The above plot demonstrates the survivorship bias fallacy. It shows the height and weight of people who survived a plane crash, leading to a conclusion that the survivors have a different height and weight distribution than the entire population, which is misleading.')
     elif selected_fallacy == 'Gerrymandering':
         st.subheader('Gerrymandering')
         # Create a scatterplot of voter turnout vs. party affiliation, and then manipulate the data to favor one party
@@ -145,6 +158,7 @@ def main():
         df_combined = pd.concat([df_rep, df_dem])
         sns.scatterplot(data=df_combined, x='VoterTurnout', y='Party')
         st.pyplot()
+        st.write('The above plot demonstrates the gerrymandering fallacy. It shows the voter turnout and party affiliation plotted together and then manipulated to favor one party, leading to a conclusion that the party has more support than it actually does.')
     elif selected_fallacy == 'Hawthorne Effect':
         st.subheader('Hawthorne Effect')
         # Plot the effect of a new teaching method on student grades
@@ -153,6 +167,7 @@ def main():
         df_h = pd.DataFrame({'OldMethod': grades_old_method, 'NewMethod': grades_new_method})
         sns.boxplot(data=df_h)
         st.pyplot()
+        st.write('The above plot demonstrates the Hawthorne effect fallacy. It shows the effect of a new teaching method on student grades, leading to a conclusion that the new method is more effective, without controlling for other variables.')
     elif selected_fallacy == 'McNamara Fallacy':
         st.subheader('McNamara Fallacy')
         # Plot the number of new customers and the number of customer complaints over time
@@ -161,6 +176,7 @@ def main():
         df_m = pd.DataFrame({'NewCustomers': num_customers, 'Complaints': num_complaints})
         sns.lineplot(data=df_m)
         st.pyplot()
+        st.write('The above plot demonstrates the McNamara fallacy. It shows the number of new customers and customer complaints plotted over time, leading to a conclusion that the company is improving, without considering other factors.')
     elif selected_fallacy == 'Danger of Summary Metrics':
         st.subheader('Danger of Summary Metrics')
         # Plot the Math grades of all students, and then plot the grades of the top 10% separately
@@ -168,12 +184,7 @@ def main():
         sns.histplot(df, x='Math')
         sns.histplot(top_10, x='Math', color='red')
         st.pyplot()
-       
+        st.write('The above plot demonstrates the danger of summary metrics. It shows the distribution of Math grades of all students and then of the top 10%, leading to a conclusion that the top 10% has significantly higher grades, without considering the full context of the data. This can be misleading, as it ignores the fact that the rest of the students may also have high grades, and the top 10% may not be representative of the overall population. It is important to analyze the full dataset and consider the context in order to avoid the danger of summary metrics.')
+
 if __name__ == '__main__':
     main()
-       
-       
-
-
-      
-       
