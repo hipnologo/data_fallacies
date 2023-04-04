@@ -2,6 +2,11 @@
 
 This is a Streamlit app that demonstrates different data fallacies using a sample dataset of student grades and Seaborn visualizations.
 
+[![Forks](https://img.shields.io/github/forks/hipnologo/data_fallacies)](https://github.com/hipnologo/data_fallacies/network/members)
+[![Stars](https://img.shields.io/github/stars/hipnologo/data_fallacies)](https://github.com/hipnologo/data_fallacies/stargazers)
+[![Issues](https://img.shields.io/github/issues/hipnologo/data_fallacies)](https://github.com/hipnologo/data_fallacies/issues)
+[![GitHub contributors](https://img.shields.io/github/contributors/hipnologo/data_fallacies)](https://github.com/hipnologo/data_fallacies/graphs/contributors)
+
 ## Installation
 
 To install the dependencies, run:
@@ -43,7 +48,7 @@ To see a demonstration of each fallacy, run the app and select a fallacy from th
 
 ## Acknowledgements
 
-This app was based on the Data Fallacies to Avoid article by [Visualcapitalist] (https://www.visualcapitalist.com/here-are-15-common-data-fallacies-to-avoid). The dataset used in this app is synthetic and was created using NumPy. The plots were generated using Seaborn
+This app was based on the Data Fallacies to Avoid article by [Visualcapitalist](https://www.visualcapitalist.com/here-are-15-common-data-fallacies-to-avoid). The dataset used in this app is synthetic and was created using NumPy. The plots were generated using Seaborn
 
 ## License
 
