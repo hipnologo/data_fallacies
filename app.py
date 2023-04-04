@@ -74,7 +74,7 @@ def main():
     elif selected_fallacy == 'Regression Towards the Mean': 
         st.subheader('Regression Towards the Mean')
         # Select the top 10 students in Math and plot their grades in the next test
-        top_students = df.nlargest(10, 'Math')
+        top_students = df.nlargest(10, 'Math')[['Math', 'Science', 'English']]
         next_test = top_students.apply(lambda x: np.random.normal(x.mean(), 10), axis=1)
         sns.scatterplot(x=top_students['Math'], y=next_test)
         st.pyplot()
