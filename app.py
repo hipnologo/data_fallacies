@@ -50,6 +50,7 @@ def main():
         top_students = df.nlargest(10, 'Math')
         sns.scatterplot(data=top_students, x='Math', y='Science')
         st.pyplot()
+        st.write('The above plot demonstrates the fallacy of cherry picking. The top 10 students in Math are selected and their grades in Science are plotted, while ignoring the grades of other students.')
     elif selected_fallacy == 'Cobra Effect':
         st.subheader('Cobra Effect')
         # Plot the number of rats killed by people over time
@@ -57,12 +58,14 @@ def main():
         incentives = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         sns.lineplot(x=incentives, y=rats_killed)
         st.pyplot()
+        st.write('The above plot demonstrates the fallacy of the Cobra Effect. In this scenario, an incentive was provided to people to kill rats, but it led to an increase in the number of rats instead.')
     elif selected_fallacy == 'Sampling Bias':
         st.subheader('Sampling Bias')
         # Collect data only from students who scored above 80 in Math and plot their grades in Science
         biased_sample = df[df['Math'] > 80]
         sns.scatterplot(data=biased_sample, x='Math', y='Science')
         st.pyplot()
+        st.write('The above plot demonstrates the fallacy of sampling bias. Only students who scored above 80 in Math are selected and their grades in Science are plotted, leading to a biased conclusion.')
     elif selected_fallacy == 'Regression Towards the Mean': 
         st.subheader('Regression Towards the Mean')
         # Select the top 10 students in Math and plot their grades in the next test
@@ -165,6 +168,11 @@ def main():
         sns.histplot(df, x='Math')
         sns.histplot(top_10, x='Math', color='red')
         st.pyplot()
+       
+if __name__ == '__main__':
+    main()
+       
+       
 
 
       
