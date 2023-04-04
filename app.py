@@ -1,5 +1,17 @@
 import streamlit as st
 import seaborn as sns
+import pandas as pd
+import numpy as np
+
+np.random.seed(123)  # For reproducibility
+
+# Create a DataFrame with 100 students and their grades in three subjects
+df = pd.DataFrame({
+    'StudentID': range(1, 101),
+    'Math': np.random.randint(60, 101, 100),
+    'Science': np.random.randint(60, 101, 100),
+    'English': np.random.randint(60, 101, 100)
+})
 
 # Set the page title
 st.set_page_config(page_title='Data Fallacies Demo')
