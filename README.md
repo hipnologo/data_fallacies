@@ -54,3 +54,4 @@ This app was based on the Data Fallacies to Avoid article by [Visualcapitalist](
 
 This app is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
+<a href="https://www.buymeacoffee.com/hipnologod" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
